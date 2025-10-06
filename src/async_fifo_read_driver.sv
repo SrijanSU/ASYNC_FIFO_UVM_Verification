@@ -18,7 +18,7 @@ class async_fifo_read_driver extends uvm_driver#(async_fifo_read_item);
     async_fifo_read_item seq;
     forever begin
       seq_item_port.get_next_item(seq);
-      @(vif.cb_r_drv);
+      repeat(1)@(vif.cb_r_drv);
         vif.cb_r_drv.rinc <= seq.rinc;
       `uvm_info("READ_DRIVER",$sformatf("READ DRIVER SENDING RINC=%b",seq.rinc),UVM_LOW);
       seq_item_port.item_done();

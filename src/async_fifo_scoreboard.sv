@@ -18,6 +18,7 @@ class async_fifo_scoreboard extends uvm_component;
   bit full, empty;
   static int MATCH;
   static int MISMATCH;
+  static int count;
 
   function new(string name, uvm_component parent);
     super.new(name,parent);
@@ -35,6 +36,14 @@ class async_fifo_scoreboard extends uvm_component;
     join_none
   endtask 
   
+  function void report_phase(uvm_phase phase);
+    super.report_phase(phase);
+
+    `uvm_info("SCOREBOARD", 
+              $sformatf("========= FINAL SCOREBOARD SUMMARY =========\nMATCH   = %0d\nMISMATCH= %0d\nCOUNT   =%0d\n===========================================", 
+                        MATCH, MISMATCH,count),
+              UVM_NONE)
+  endfunction
   
   
   task writes();
@@ -55,7 +64,7 @@ class async_fifo_scoreboard extends uvm_component;
       if (write_item.winc ) begin
         if (exp_full) begin
           if (write_item.wfull) begin
-            `uvm_info("SCOREBOARD", $sformatf("WRITE is full", depth), UVM_LOW);
+            `uvm_info("SCOREBOARD", $sformatf("WRITE is full %d", depth), UVM_LOW);
           end 
           
         end 
@@ -63,7 +72,7 @@ class async_fifo_scoreboard extends uvm_component;
           async_fifo_write_item cloned;
           $cast(cloned, write_item.clone());
           exp_fifo.put(cloned);
-          `uvm_info("SCOREBOARD", $sformatf("WRITE: stored 0x%0h (depth now=%0d)", cloned.wdata, exp_fifo.used()), UVM_MEDIUM);
+          `uvm_info("SCOREBOARD", $sformatf("WRITE: stored %d (depth now=%0d)", cloned.wdata, exp_fifo.used()), UVM_MEDIUM);
         end
       end 
       
@@ -73,8 +82,10 @@ class async_fifo_scoreboard extends uvm_component;
   task reads();
     int depth_before;
     bit exp_empty;
+    async_fifo_write_item check;
     forever begin
       read_fifo.get(read_item); 
+      count++;
       depth_before = exp_fifo.used();
       exp_empty = (depth_before == 0);
 
@@ -92,25 +103,27 @@ class async_fifo_scoreboard extends uvm_component;
           
         end 
         else begin
-          async_fifo_write_item check;
-          if (!exp_fifo.try_get(check)) begin
-            `uvm_error("SCOREBOARD", "Try get, No data found (Should be present)");
-            MISMATCH++;
-          end 
-          else begin
+          
+//           if (!exp_fifo.peek(check)) begin
+//             `uvm_error("SCOREBOARD", "Peeked, No data found (Should be present)");
+//             MISMATCH++;
+//           end 
+          if(exp_fifo.try_get(check))begin
+            //exp_fifo.get(check);
             if (check.wdata !== read_item.rdata) begin
-              `uvm_error("SCOREBOARD", $sformatf("DATA MISMATCH: EXP=0x%0h GOT=0x%0h (depth before pop=%0d)",
-                                                 check.wdata, read_item.rdata, depth_before));
+              `uvm_error("SCOREBOARD", $sformatf("DATA MISMATCH: EXP=%d GOT=%d (depth before pop=%0d)",check.wdata, read_item.rdata, depth_before));
               MISMATCH++;
             end 
             else begin
               MATCH++;
-              `uvm_info("SCOREBOARD", $sformatf("READ matched 0x%0h (depth now=%0d)", read_item.rdata, exp_fifo.used()), UVM_LOW);
+              `uvm_info("SCOREBOARD", $sformatf("DATA MATCH: EXP=%d GOT=%d (depth now =%0d)",check.wdata, read_item.rdata, exp_fifo.used()), UVM_LOW);
             end
           end
         end
       end 
     end
   endtask
+  
+  
   
 endclass

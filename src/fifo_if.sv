@@ -1,4 +1,4 @@
-include "defines.sv"
+`include "defines.sv"
 
 interface fifo_if(input bit wclk,input bit rclk, input bit wrst_n,input bit rrst_n);
 
@@ -24,7 +24,7 @@ interface fifo_if(input bit wclk,input bit rclk, input bit wrst_n,input bit rrst
     input winc, wdata, wfull;
   endclocking
   
-  clocking cb_r_mon @(posedge wclk or negedge wrst_n);
+  clocking cb_r_mon @(posedge rclk or negedge rrst_n);
     default input #0 output #0;
     input rinc, rdata, rempty;
   endclocking
