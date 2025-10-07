@@ -1,0 +1,15 @@
+var g_data = {
+g773:[{dummy:0},
+{name:'cg1',f:1,type:1,id:774,tb:'260',h:'259',m:'1',hp:'99.61%',cov:['83.33%','Y'],g:'100.00%',gp:['83.33%','Y'],opts:[[],['merge_instance','auto(true)']],parent:'773'},
+{name:'cg2',f:1,type:1,id:778,tb:'260',h:'259',m:'1',hp:'99.61%',cov:['83.33%','Y'],g:'100.00%',gp:['83.33%','Y'],opts:[[],['merge_instance','auto(true)']],parent:'773'}],
+c774:{name:'cg1',type:1,pHash:'773',pPath:'/fifo_pkg/async_fifo_subscriber',totals:[260,259,'99.61%','G',0,0,'0.00%','R'],cvp:[{dummy:0},
+{name:'write_data',f:1,type:4,id:775,tb:'256',h:'256',m:'0',hp:'100.00%',cov:['100.00%','G'],g:'100.00%',gp:['100.00%','G'],hasb:1,parent:'774'},
+{name:'wfull',f:1,type:4,id:776,tb:'2',h:'2',m:'0',hp:'100.00%',cov:['100.00%','G'],g:'100.00%',gp:['100.00%','G'],hasb:1,parent:'774'},
+{name:'winc',f:1,type:4,id:777,tb:'2',h:'1',m:'1',hp:'50.00%',cov:['50.00%','Y'],g:'100.00%',gp:['50.00%','Y'],hasb:1,parent:'774'}],crx:[{dummy:0}]},
+c778:{name:'cg2',type:1,pHash:'773',pPath:'/fifo_pkg/async_fifo_subscriber',totals:[260,259,'99.61%','G',0,0,'0.00%','R'],cvp:[{dummy:0},
+{name:'read_data',f:1,type:4,id:779,tb:'256',h:'256',m:'0',hp:'100.00%',cov:['100.00%','G'],g:'100.00%',gp:['100.00%','G'],hasb:1,parent:'778'},
+{name:'rempty',f:1,type:4,id:780,tb:'2',h:'2',m:'0',hp:'100.00%',cov:['100.00%','G'],g:'100.00%',gp:['100.00%','G'],hasb:1,parent:'778'},
+{name:'rinc',f:1,type:4,id:781,tb:'2',h:'1',m:'1',hp:'50.00%',cov:['50.00%','Y'],g:'100.00%',gp:['50.00%','Y'],hasb:1,parent:'778'}],crx:[{dummy:0}]},
+dummyEnd:0
+};
+processCovergroupsData(g_data);

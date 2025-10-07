@@ -1,6 +1,6 @@
 QUESTA := /home/share/questa.csh
 SHELL := /bin/csh
-TEST ?= apb_regress_test
+TEST ?= async_fifo_test
 V ?= UVM_DEBUG
 
 .ONESHELL:	
@@ -13,9 +13,9 @@ all:
 
 clean:
 	rm -rf work/ transcript vsim.wlf wave.vcd
-	rm -rf covReport apb_coverage.ucdb
+	rm -rf covReport fifo_coverage.ucdb
 	rm apb.log simulation.log
-	rm apb_coverage.ucdb
+	rm fifo_coverage.ucdb
 	cleaBOSITY=<level>
 	clear
 	clear
@@ -23,15 +23,15 @@ clean:
 compile:
 	@echo "COMPILING CODE ......."
 	source $(QUESTA)
-	vlog -sv +acc +cover +fcover -l apb.log apb_top.sv 
+	vlog -sv +acc +cover +fcover +define+WCLK=$(WCLK) +define+RCLK=$(RCLK) -l fifo.log testbench.sv
 
 wave:
 	make compile
-	vsim -novopt work.top +UVM_TESTNAME=$(TEST) +UVM_VERBOSITY=$(V)
+	vsim -novopt work.fifo_top +UVM_TESTNAME=$(TEST) +UVM_VERBOSITY=$(V)
 
 simulate:
 	@echo "SIMULATING CODE"
-	vsim -vopt work.top -voptargs=+acc=npr -assertdebug -l simulation.log -coverage -c -do "coverage save -onexit -assert -directive -cvg -codeAll apb_coverage.ucdb; run -all; exit" +UVM_TESTNAME=$(TEST) +UVM_VERBOSITY=$(V)
+	vsim -vopt work.fifo_top -voptargs=+acc=npr -assertdebug -l simulation.log -coverage -c -do "coverage save -onexit -assert -directive -cvg -codeAll fifo_coverage.ucdb; run -all; exit" +UVM_TESTNAME=$(TEST) +UVM_VERBOSITY=$(V)
 
 view:
 	firefox ./covReport/index.html

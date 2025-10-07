@@ -1,0 +1,5 @@
+var g_db_data = [
+{dummy:0},
+{name:'cg1',f:1,type:6,id:774,tb:'260',h:'259',m:'1',hp:'99.61%',cov:['83.33%','Y'],g:'100.00%',gp:['83.33%','Y'],opts:[[],['merge_instance','auto(true)']],hdlPath:'/fifo_pkg/async_fifo_subscriber',parent:'773'},
+{name:'cg2',f:1,type:6,id:778,tb:'260',h:'259',m:'1',hp:'99.61%',cov:['83.33%','Y'],g:'100.00%',gp:['83.33%','Y'],opts:[[],['merge_instance','auto(true)']],hdlPath:'/fifo_pkg/async_fifo_subscriber',parent:'773'}];
+processConsCovergroupsData(g_db_data);

@@ -1,6 +1,6 @@
 # vsim -c fifo_top 
-# Start time: 21:15:26 on Oct 07,2025
-# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# Start time: 22:52:11 on Oct 07,2025
+# ** Note: (vsim-3812) Design is being optimized...
 # //  Questa Sim
 # //  Version 10.6c linux Jul 25 2017
 # //
@@ -47,6 +47,8 @@
 # UVM_INFO async_fifo_write_driver.sv(25) @ 5: uvm_test_top.env.wagent.drv [WRITE_DRIVER] WRITE DRIVER SENDING: WDATA=160, WINC=1
 # UVM_INFO async_fifo_read_driver.sv(24) @ 10: uvm_test_top.env.ragent.drv [READ_DRIVER] READ DRIVER SENDING RINC=1
 # 1
+# ** Info: rrst_check FAILED: rempty != 1 or rdata != 0 when rrst = 0
+#    Time: 10 ns Started: 10 ns  Scope: fifo_top.intf File: fifo_if.sv Line: 65
 # UVM_INFO async_fifo_write_driver.sv(25) @ 15: uvm_test_top.env.wagent.drv [WRITE_DRIVER] WRITE DRIVER SENDING: WDATA=140, WINC=1
 # UVM_INFO async_fifo_write_monitor.sv(30) @ 15: uvm_test_top.env.wagent.mon [WRITE_MONITOR] WRITE MONITOR TO SCOREBOARD
 # UVM_INFO async_fifo_scoreboard.sv(82) @ 15: uvm_test_top.env.sb [SCOREBOARD] WRITE: stored 160 (depth now=1)
@@ -26078,5 +26080,5 @@
 # [get_name()]     2
 # ** Note: $finish    : /tools/mentor/questasim_10.6c/questasim/uvm-1.1d/../verilog_src/uvm-1.1d/src/base/uvm_root.svh(430)
 #    Time: 79991 ns  Iteration: 59  Instance: /fifo_top
-# End time: 21:15:38 on Oct 07,2025, Elapsed time: 0:00:12
+# End time: 22:52:25 on Oct 07,2025, Elapsed time: 0:00:14
 # Errors: 0, Warnings: 0
