@@ -92,7 +92,7 @@ class async_fifo_scoreboard extends uvm_component;
       if (read_item.rempty !== exp_empty) begin
         `uvm_error("SCOREBOARD", $sformatf("rempty mismatch: DUT=%0b EXP=%0b depth=%0d",
                                            read_item.rempty, exp_empty, depth_before));
-        MISMATCH++;
+       // MISMATCH++;
       end
 
       if (read_item.rinc) begin

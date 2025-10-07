@@ -30,7 +30,7 @@ class async_fifo_read_monitor extends uvm_component;
         seq.rempty = vif.cb_r_mon.rempty;
         `uvm_info("READ_MONITOR",$sformatf("READ MONITOR TO SCOREBOARD"),UVM_LOW);
         ap.write(seq);
-        if(!first) begin
+        if(first) begin
           first=0;
           repeat(2)@(vif.cb_r_mon);
         end

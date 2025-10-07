@@ -29,10 +29,12 @@ class async_fifo_write_monitor extends uvm_component;
         seq.wfull = vif.cb_w_mon.wfull;
         `uvm_info("WRITE_MONITOR",$sformatf("WRITE MONITOR TO SCOREBOARD"),UVM_LOW);
         ap.write(seq);
-        if(!first) begin
-          first=0;
-          repeat(2)@(vif.cb_w_mon);
-        end
+//         if(first)begin
+//           first=0;
+//           @(vif.cb_w_mon);
+//           ap.write(seq);
+//         end
+        
       end
     end
   endtask
