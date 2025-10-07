@@ -3,7 +3,7 @@
 
 class async_fifo_write_item extends uvm_sequence_item;
 
-  rand bit [`DATA_WIDTH-1:0] wdata;
+  randc bit [`DATA_WIDTH-1:0] wdata;
   rand bit winc;
   bit wfull;
 

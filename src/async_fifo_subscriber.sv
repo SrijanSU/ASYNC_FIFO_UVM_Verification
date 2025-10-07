@@ -25,7 +25,7 @@ class async_fifo_subscriber extends uvm_component;
   
   covergroup cg2;
     read_data: coverpoint rd_item.rdata{
-      bins data_first[] = {[0:255]};
+      bins data[] = {[0:255]};
     }
     rempty: coverpoint rd_item.rempty{
       bins empty_flag[] = {0,1};

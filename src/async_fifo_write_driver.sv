@@ -23,7 +23,7 @@ class async_fifo_write_driver extends uvm_driver#(async_fifo_write_item);
         vif.cb_w_drv.wdata <= seq.wdata;
         vif.cb_w_drv.winc  <= seq.winc;
       `uvm_info("WRITE_DRIVER",$sformatf("WRITE DRIVER SENDING: WDATA=%d, WINC=%b", seq.wdata,seq.winc),UVM_LOW);
-     	seq.print();
+     	//seq.print();
       seq_item_port.item_done();
 //       if(first) begin
 //         first=0;

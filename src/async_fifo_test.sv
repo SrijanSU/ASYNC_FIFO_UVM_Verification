@@ -20,7 +20,7 @@ class async_fifo_test extends uvm_test;
     super.run_phase(phase);
     phase.raise_objection(this);
     vs = async_fifo_virtual_sequence::type_id::create("vs");
-    repeat(20)begin
+    repeat(1000)begin
       vs.start(env.vseqr);
     end
     phase.drop_objection(this);

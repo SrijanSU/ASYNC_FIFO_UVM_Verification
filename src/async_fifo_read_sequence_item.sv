@@ -3,7 +3,7 @@
 
 class async_fifo_read_item extends uvm_sequence_item;
 
-  rand bit rinc;
+  randc bit rinc;
   bit [`DATA_WIDTH-1:0] rdata;
   bit rempty;
 

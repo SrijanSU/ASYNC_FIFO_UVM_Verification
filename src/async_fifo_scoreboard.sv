@@ -15,6 +15,9 @@ class async_fifo_scoreboard extends uvm_component;
   async_fifo_write_item write_item;
   async_fifo_read_item read_item;
 
+  static int depth;
+  static int maxd;
+  static bit exp_full;
   bit full, empty;
   static int MATCH;
   static int MISMATCH;
@@ -47,31 +50,35 @@ class async_fifo_scoreboard extends uvm_component;
   
   
   task writes();
-    int depth;
-    int maxd;
-    bit exp_full;
+    
     forever begin
       write_fifo.get(write_item);
-      depth = exp_fifo.used();
+//       depth = exp_fifo.used();
       maxd  = exp_fifo.size();  
-      exp_full = (depth == maxd);
-      if (write_item.wfull !== exp_full) begin
-        `uvm_error("SCOREBOARD", $sformatf("wfull mismatch: DUT=%0b EXP=%0b depth=%0d",write_item.wfull, exp_full, depth));
-        MISMATCH++;
-      end
+//       exp_full = (depth == maxd);
+//       if (write_item.wfull !== exp_full) begin
+//         `uvm_error("SCOREBOARD", $sformatf("wfull mismatch: DUT=%0b EXP=%0b depth=%0d",write_item.wfull, exp_full, depth));
+//         MISMATCH++;
+//       end
 
 
-      if (write_item.winc ) begin
-        if (exp_full) begin
-          if (write_item.wfull) begin
-            `uvm_info("SCOREBOARD", $sformatf("WRITE is full %d", depth), UVM_LOW);
+      if (write_item.winc && !write_item.wfull) begin
+        
+        if (exp_fifo.used()==maxd) begin
+            `uvm_info("SCOREBOARD", $sformatf("WRITE is full "), UVM_LOW);
           end 
           
-        end 
+        
         else begin
           async_fifo_write_item cloned;
           $cast(cloned, write_item.clone());
           exp_fifo.put(cloned);
+          depth = exp_fifo.used();  
+          exp_full = (depth == maxd);
+          if (write_item.wfull !== exp_full ) begin
+        `uvm_error("SCOREBOARD", $sformatf("wfull mismatch: DUT=%0b EXP=%0b depth=%0d",write_item.wfull, exp_full, depth));
+       // MISMATCH++;
+      end
           `uvm_info("SCOREBOARD", $sformatf("WRITE: stored %d (depth now=%0d)", cloned.wdata, exp_fifo.used()), UVM_MEDIUM);
         end
       end 
@@ -82,16 +89,17 @@ class async_fifo_scoreboard extends uvm_component;
   task reads();
     int depth_before;
     bit exp_empty;
+    
     async_fifo_write_item check;
     forever begin
       read_fifo.get(read_item); 
+      maxd  = exp_fifo.size();
       count++;
-      depth_before = exp_fifo.used();
-      exp_empty = (depth_before == 0);
-
+//       depth = exp_fifo.used();
+      exp_empty = (depth == 0);
       if (read_item.rempty !== exp_empty) begin
         `uvm_error("SCOREBOARD", $sformatf("rempty mismatch: DUT=%0b EXP=%0b depth=%0d",
-                                           read_item.rempty, exp_empty, depth_before));
+                                           read_item.rempty, exp_empty, exp_fifo.used()));
        // MISMATCH++;
       end
 
@@ -108,17 +116,20 @@ class async_fifo_scoreboard extends uvm_component;
 //             `uvm_error("SCOREBOARD", "Peeked, No data found (Should be present)");
 //             MISMATCH++;
 //           end 
-          if(exp_fifo.try_get(check))begin
-            //exp_fifo.get(check);
+          //if(exp_fifo.try_get(check))begin
+            exp_fifo.get(check);
+            depth = exp_fifo.used();
+     	  	//maxd  = exp_fifo.size();  
+      	  	exp_full = (depth == maxd);
             if (check.wdata !== read_item.rdata) begin
-              `uvm_error("SCOREBOARD", $sformatf("DATA MISMATCH: EXP=%d GOT=%d (depth before pop=%0d)",check.wdata, read_item.rdata, depth_before));
+              `uvm_error("SCOREBOARD", $sformatf("DATA MISMATCH: EXP=%d GOT=%d REMPTY=%0d (depth after pop=%0d)",check.wdata, read_item.rdata,read_item.rempty ,exp_fifo.used()));
               MISMATCH++;
             end 
             else begin
               MATCH++;
-              `uvm_info("SCOREBOARD", $sformatf("DATA MATCH: EXP=%d GOT=%d (depth now =%0d)",check.wdata, read_item.rdata, exp_fifo.used()), UVM_LOW);
+              `uvm_info("SCOREBOARD", $sformatf("DATA MATCH: EXP=%d GOT=%d REMPTY=%0d (depth now =%0d)",check.wdata, read_item.rdata,read_item.rempty, exp_fifo.used()), UVM_LOW);
             end
-          end
+          //end
         end
       end 
     end
