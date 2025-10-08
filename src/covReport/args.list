@@ -1,5 +1,5 @@
 -html
-coverage.ucdb
+fifo_coverage.ucdb
 -htmldir
 covReport
 -details

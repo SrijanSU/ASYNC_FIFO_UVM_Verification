@@ -1,0 +1,20 @@
+var g_data = {
+a16:{
+scopes:[{s:'11',b:'0',val:'fifo_top'},{link:'z.htm?f=0&s=16',val:'intf'}]
+,assertions:[{dummy:0},{cr:'c',c:'g',z:'assert__read_unknown',fc:'Gr',pc:'Gr',h0:'0',h1:'96',h2:'100',h3:'4',h4:'0',h5:'0',h6:'1'}
+,{cr:'m',c:'F',z:'assert__rrst_check',fc:'Rr',pc:'Rr',h0:'1',h1:'0',h2:'100',h3:'99',h4:'0',h5:'0',h6:'1'}
+,{cr:'c',c:'g',z:'assert__write_unknown',fc:'Gr',pc:'Gr',h0:'0',h1:'198',h2:'199',h3:'0',h4:'1',h5:'0',h6:'1'}
+,{cr:'c',c:'g',z:'assert__wrst_check',fc:'Gr',pc:'Gr',h0:'0',h1:'1',h2:'199',h3:'198',h4:'0',h5:'0',h6:'1'}
+],
+},
+a2:{
+scopes:[{link:'z.htm?f=0&s=2',val:'work.fifo_if'}]
+,assertions:[{dummy:0},{cr:'c',c:'g',z:'assert__read_unknown',fc:'Gr',pc:'Gr',h0:'0',h1:'96',h2:'100',h3:'4',h4:'0',h5:'0',h6:'1'}
+,{cr:'m',c:'F',z:'assert__rrst_check',fc:'Rr',pc:'Rr',h0:'1',h1:'0',h2:'100',h3:'99',h4:'0',h5:'0',h6:'1'}
+,{cr:'c',c:'g',z:'assert__write_unknown',fc:'Gr',pc:'Gr',h0:'0',h1:'198',h2:'199',h3:'0',h4:'1',h5:'0',h6:'1'}
+,{cr:'c',c:'g',z:'assert__wrst_check',fc:'Gr',pc:'Gr',h0:'0',h1:'1',h2:'199',h3:'198',h4:'0',h5:'0',h6:'1'}
+],
+},
+dummyEnd:0
+};
+processAssertionsData(g_data,1);

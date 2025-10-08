@@ -60,6 +60,12 @@ class async_fifo_scoreboard extends uvm_component;
 //         `uvm_error("SCOREBOARD", $sformatf("wfull mismatch: DUT=%0b EXP=%0b depth=%0d",write_item.wfull, exp_full, depth));
 //         MISMATCH++;
 //       end
+			 if (write_item.wfull !== exp_full ) begin
+        `uvm_error("SCOREBOARD", $sformatf("wfull mismatch: DUT=%0b EXP=%0b depth=%0d",write_item.wfull, exp_full, depth));
+       // MISMATCH++;
+      end
+          else if(write_item.wfull === exp_full )
+             $display("wfull match: DUT=%0b EXP=%0b depth=%0d",write_item.wfull, exp_full, depth);
 
 
       if (write_item.winc && !write_item.wfull) begin
@@ -75,10 +81,12 @@ class async_fifo_scoreboard extends uvm_component;
           exp_fifo.put(cloned);
           depth = exp_fifo.used();  
           exp_full = (depth == maxd);
-          if (write_item.wfull !== exp_full ) begin
+     /*     if (write_item.wfull !== exp_full ) begin
         `uvm_error("SCOREBOARD", $sformatf("wfull mismatch: DUT=%0b EXP=%0b depth=%0d",write_item.wfull, exp_full, depth));
        // MISMATCH++;
       end
+          else if(write_item.wfull === exp_full )
+             $display("wfull match: DUT=%0b EXP=%0b depth=%0d",write_item.wfull, exp_full, depth);*/
           `uvm_info("SCOREBOARD", $sformatf("WRITE: stored %d (depth now=%0d)", cloned.wdata, exp_fifo.used()), UVM_MEDIUM);
         end
       end 

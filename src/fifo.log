@@ -1,7 +1,6 @@
 QuestaSim vlog 10.6c Compiler 2017.07 Jul 25 2017
-Start time: 22:37:15 on Oct 07,2025
-vlog -sv "+acc" "+cover" "+fcover" "+define+WCLK=" "+define+RCLK=" -l fifo.log testbench.sv 
-** Note: (vlog-2286) testbench.sv(1): Using implicit +incdir+/tools/mentor/questasim_10.6c/questasim/uvm-1.1d/../verilog_src/uvm-1.1d/src from import uvm_pkg
+Start time: 21:10:10 on Oct 08,2025
+vlog -sv "+acc" "+cover" "+fcover" "+define+UVM_NO_DPI" "+define+WCLK=" "+define+RCLK=" -l fifo.log testbench.sv "+incdir+/tools/mentor/questasim_10.6c/questasim/uvm-1.1d/../verilog_src/uvm-1.1d/src" 
 -- Compiling package uvm_pkg (uvm-1.1d Built-in)
 -- Compiling package fifo_pkg
 -- Importing package uvm_pkg (uvm-1.1d Built-in)
@@ -13,9 +12,8 @@ vlog -sv "+acc" "+cover" "+fcover" "+define+WCLK=" "+define+RCLK=" -l fifo.log t
 -- Compiling module wptr_full
 -- Compiling module fifo_top
 -- Importing package fifo_pkg
-** Warning: (vlog-2292) An included file is associated with a closed UVM package, but no closed UVM package was imported
 
 Top level modules:
 	fifo_top
-End time: 22:37:16 on Oct 07,2025, Elapsed time: 0:00:01
-Errors: 0, Warnings: 1
+End time: 21:10:11 on Oct 08,2025, Elapsed time: 0:00:01
+Errors: 0, Warnings: 0

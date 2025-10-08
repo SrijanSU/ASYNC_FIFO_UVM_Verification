@@ -9,12 +9,12 @@ all:
 	make clean
 	make compile
 	make simulate
-	vcover report -html apb_coverage.ucdb -htmldir covReport -details
+	vcover report -html fifo_coverage.ucdb -htmldir covReport -details
 
 clean:
 	rm -rf work/ transcript vsim.wlf wave.vcd
 	rm -rf covReport fifo_coverage.ucdb
-	rm apb.log simulation.log
+	rm fifo.log simulation.log
 	rm fifo_coverage.ucdb
 	cleaBOSITY=<level>
 	clear
@@ -23,7 +23,7 @@ clean:
 compile:
 	@echo "COMPILING CODE ......."
 	source $(QUESTA)
-	vlog -sv +acc +cover +fcover +define+WCLK=$(WCLK) +define+RCLK=$(RCLK) -l fifo.log testbench.sv
+	vlog -sv +acc +cover +fcover +define+UVM_NO_DPI  +define+WCLK=$(WCLK) +define+RCLK=$(RCLK) -l fifo.log testbench.sv  "+incdir+/tools/mentor/questasim_10.6c/questasim/uvm-1.1d/../verilog_src/uvm-1.1d/src"
 
 wave:
 	make compile

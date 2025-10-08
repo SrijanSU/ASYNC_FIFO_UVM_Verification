@@ -12,6 +12,7 @@ class async_fifo_subscriber extends uvm_component;
   real read_cov_report;
   
   covergroup cg1;
+	option.goal = 100;
     write_data: coverpoint wr_item.wdata{
       bins data[] = {[0:255]};
     }
@@ -24,6 +25,7 @@ class async_fifo_subscriber extends uvm_component;
   endgroup
   
   covergroup cg2;
+	option.goal = 100;
     read_data: coverpoint rd_item.rdata{
       bins data[] = {[0:255]};
     }

@@ -27,14 +27,14 @@ class async_fifo_virtual_sequence extends uvm_sequence #(uvm_sequence_item);
     
     rd_seq1 = rd_sequence1::type_id::create("rd_seq1");
     rd_seq2 = rd_sequence2::type_id::create("rd_seq2");
-    
-    fork 
+   
+	 fork 
       wr_seq.start(p_sequencer.write_seqr);
       rd_seq.start(p_sequencer.read_seqr);
     
     join
     
-    fork
+    /*fork
       begin
         $display("1");
         wr_seq1.start(p_sequencer.write_seqr);
@@ -44,24 +44,24 @@ class async_fifo_virtual_sequence extends uvm_sequence #(uvm_sequence_item);
         rd_seq1.start(p_sequencer.read_seqr);
         #1;
       end
-    join
+    join*/
     
-    fork
+  /*  fork
       begin
         $display("3");
         wr_seq1.start(p_sequencer.write_seqr);
         #1;
       end
         rd_seq2.start(p_sequencer.read_seqr);
-    join
-    fork   
+    join*/
+/*    fork   
       $display("4");
         wr_seq2.start(p_sequencer.write_seqr);
      begin
         rd_seq1.start(p_sequencer.read_seqr);
         #1;
      end
-   join
+   join*/
     
   endtask
 
