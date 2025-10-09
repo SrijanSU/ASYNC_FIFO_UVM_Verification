@@ -22,7 +22,7 @@ class async_fifo_read_agent extends uvm_agent;
     // --------------------------------------------
     function new(string name, uvm_component parent);
         super.new(name, parent);
-    endfunction: new
+    endfunction:new
 
     // --------------------------------------------
     // Build Phase
@@ -33,7 +33,7 @@ class async_fifo_read_agent extends uvm_agent;
             seqr = async_fifo_read_sequencer::type_id::create("seqr", this);
         end
         mon = async_fifo_read_monitor::type_id::create("mon", this);
-    endfunction: build_phase
+    endfunction:build_phase
 
     // --------------------------------------------
     // Connect Phase
@@ -44,4 +44,4 @@ class async_fifo_read_agent extends uvm_agent;
             drv.seq_item_port.connect(seqr.seq_item_export);
     endfunction: connect_phase
 
-endclass: async_fifo_read_agent
+endclass:async_fifo_read_agent
