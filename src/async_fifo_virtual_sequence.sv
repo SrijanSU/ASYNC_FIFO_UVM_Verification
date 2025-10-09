@@ -63,7 +63,7 @@ class async_fifo_virtual_sequence extends uvm_sequence #(uvm_sequence_item);
      end
    join
     
-  endtask
+  endtask:body
 
 endclass:async_fifo_virtual_sequence
 
