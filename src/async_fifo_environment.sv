@@ -2,10 +2,9 @@
 // Project: Asynchronous FIFO Verification (UVM Environment)
 // Module : async_fifo_env
 // Description : 
-//  The environment acts as the top-level container in the UVM 
-//  testbench, instantiating all major components such as agents, 
-//  scoreboard, subscriber, and virtual sequencer. It also manages 
-//  connections between components.
+//  The environment acts as the top-level container in the UVM testbench, instantiating all major components such as agents, 
+//  scoreboard, subscriber, and virtual sequencer. It also manages connections between components.
+// Author       : Srijan S Uppoor
 //===========================================================
 
 class async_fifo_env extends uvm_env;
