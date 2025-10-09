@@ -1,3 +1,11 @@
+//============================================================
+// Project      : Asynchronous FIFO Verification
+// File Name    : fifo_pkg.sv
+// Description  : UVM Package including all components, sequences,
+//                agents, environment, and test for Async FIFO
+// Author       : Srijan S Uppoor
+//============================================================
+
 package fifo_pkg;
 `include "uvm_pkg.sv"
 `include "uvm_macros.svh"
@@ -20,4 +28,4 @@ package fifo_pkg;
 `include "async_fifo_subscriber.sv"
 `include "async_fifo_environment.sv"
 `include "async_fifo_test.sv"
-endpackage
+endpackage:fifo_pkg

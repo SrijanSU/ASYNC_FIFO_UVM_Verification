@@ -4,6 +4,6 @@ class async_fifo_read_sequencer extends uvm_sequencer#(async_fifo_read_item);
   
   function new(string name, uvm_component parent);
     super.new(name, parent);
-  endfunction
+  endfunction:new
   
-endclass
+endclass:async_fifo_read_sequencer

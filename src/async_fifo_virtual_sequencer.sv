@@ -7,6 +7,6 @@ class async_fifo_virtual_sequencer extends uvm_sequencer;
  
   function new(string name="async_fifo_virtual_sequencer", uvm_component parent=null);
     super.new(name, parent);
-  endfunction
+  endfunction:new
   
-endclass
+endclass:async_fifo_virtual_sequencer

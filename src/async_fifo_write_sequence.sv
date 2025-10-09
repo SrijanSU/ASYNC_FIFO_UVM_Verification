@@ -4,15 +4,15 @@ class async_fifo_write_sequence extends uvm_sequence #(async_fifo_write_item);
   
   function new(string name="async_fifo_write_sequence"); 
     super.new(name); 
-  endfunction
+  endfunction:new
 
   virtual task body();
     async_fifo_write_item seq;
       seq = async_fifo_write_item::type_id::create("seq");
       `uvm_rand_send_with(seq,{winc == 1;})
-  endtask
+  endtask:body
   
-endclass
+endclass:async_fifo_write_sequence
 
 
 class wr_sequence1 extends async_fifo_write_sequence;
@@ -21,13 +21,14 @@ class wr_sequence1 extends async_fifo_write_sequence;
   
   function new(string name = "wr_sequence1");
     super.new(name);
-  endfunction 
+  endfunction:new 
   
   virtual task body();
     req = async_fifo_write_item::type_id::create("req");
     `uvm_rand_send_with(req,{winc == 1;})
-  endtask
-endclass
+  endtask:body
+  
+endclass:wr_sequence1
 
 class wr_sequence2 extends async_fifo_write_sequence ;
   
@@ -35,12 +36,13 @@ class wr_sequence2 extends async_fifo_write_sequence ;
   
   function new(string name = "wr_sequence0");
     super.new(name);
-  endfunction 
+  endfunction:new 
   
   virtual task body();
     req = async_fifo_write_item::type_id::create("req");
     `uvm_rand_send_with(req,{winc == 0;})
-  endtask
-endclass
+  endtask:body
+  
+endclass:wr_sequence2
 
 
