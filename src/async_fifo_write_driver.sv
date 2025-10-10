@@ -1,19 +1,37 @@
+//============================================================
+// Project      : Asynchronous FIFO Verification
+// File Name    : async_fifo_write_driver.sv
+// Description  : UVM Driver for the write-side of the
+//                Asynchronous FIFO. Responsible for driving
+//                the DUT write interface using sequence items.
+// Author       : Srijan S Uppoor
+//============================================================
+
 class async_fifo_write_driver extends uvm_driver#(async_fifo_write_item);
 
-    `uvm_component_utils(async_fifo_write_driver)
+    `uvm_component_utils(async_fifo_write_driver)        // Registering with Factory
 
-    virtual fifo_if.WRITE_DRV vif;
+    virtual fifo_if.WRITE_DRV vif;                       // Virtual Interface Handle
 
+    // --------------------------------------------------------
+    // Constructor
+    // --------------------------------------------------------
     function new(string name, uvm_component parent);
         super.new(name, parent);
     endfunction:new
 
+    // --------------------------------------------------------
+    // Build Phase
+    // --------------------------------------------------------
     virtual function void build_phase(uvm_phase phase);
         super.build_phase(phase);
         if (!uvm_config_db#(virtual fifo_if)::get(this, "", "vif", vif))
             `uvm_fatal("WRITE_DRIVER", "No virtual interface");
     endfunction:build_phase
 
+    // --------------------------------------------------------
+    // Run Phase
+    // --------------------------------------------------------
     task run_phase(uvm_phase phase);
         async_fifo_write_item seq;
         forever begin
