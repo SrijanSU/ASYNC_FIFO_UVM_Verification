@@ -1,15 +1,33 @@
+//============================================================
+// Project      : Asynchronous FIFO Verification
+// File Name    : async_fifo_scoreboard.sv
+// Description  : UVM Scoreboard for comparing DUT FIFO behavior 
+//                with a reference model. It verifies data integrity,
+//                empty/full flag behavior, and transaction correctness.
+// Author       : Srijan S Uppoor
+//============================================================
+
 class async_fifo_scoreboard extends uvm_component;
 
-    `uvm_component_utils(async_fifo_scoreboard)
+    `uvm_component_utils(async_fifo_scoreboard)        // Register scoreboard with UVM Factory
 
-    uvm_tlm_analysis_fifo#(async_fifo_write_item) write_fifo;
-    uvm_tlm_analysis_fifo#(async_fifo_read_item)  read_fifo;
+    uvm_tlm_analysis_fifo#(async_fifo_write_item) write_fifo;        // Captures write-side transactions
+    uvm_tlm_analysis_fifo#(async_fifo_read_item)  read_fifo;         // Captures read-side transactions
 
-    uvm_tlm_fifo#(async_fifo_write_item) exp_fifo;
+    // --------------------------------------------------------
+    // Expected FIFO Model
+    // --------------------------------------------------------
+    uvm_tlm_fifo#(async_fifo_write_item) exp_fifo;         // Stores expected data sequence
 
+    // --------------------------------------------------------
+    // Temporary variables for transaction handling
+    // --------------------------------------------------------
     async_fifo_write_item write_item;
     async_fifo_read_item  read_item;
 
+    // --------------------------------------------------------
+    // Scoreboard Counters and Flags
+    // --------------------------------------------------------
     static int  depth;
     static int  maxd;
     static bit  exp_full;
@@ -18,6 +36,9 @@ class async_fifo_scoreboard extends uvm_component;
     static int  count;
     static bit  old_wfull = 0;
 
+    // --------------------------------------------------------
+    // Constructor
+    // --------------------------------------------------------
     function new(string name, uvm_component parent);
         super.new(name, parent);
         write_fifo = new("wr_imp", this);
@@ -25,6 +46,9 @@ class async_fifo_scoreboard extends uvm_component;
         exp_fifo   = new("exp_fifo", this, 2**`ADDR_WIDTH);
     endfunction:new
 
+    // --------------------------------------------------------
+    // run_phase : Parallel execution of write and read checking
+    // --------------------------------------------------------
     virtual task run_phase(uvm_phase phase);
         super.run_phase(phase);
         fork
@@ -33,11 +57,18 @@ class async_fifo_scoreboard extends uvm_component;
         join_none
     endtask:run_phase
 
+    // --------------------------------------------------------
+    // report_phase : Final scoreboard summary
+    // --------------------------------------------------------
     function void report_phase(uvm_phase phase);
         super.report_phase(phase);
         `uvm_info("SCOREBOARD",$sformatf("========= FINAL SCOREBOARD SUMMARY =========\n MATCH   = %0d\n MISMATCH= %0d\n COUNT   = %0d\n===========================================",MATCH, MISMATCH, count),UVM_NONE)
     endfunction:report_phase
 
+    // --------------------------------------------------------
+    // Task : writes
+    // Purpose : Updates expected FIFO on valid write transactions.
+    // --------------------------------------------------------
     task writes();
         forever begin
             write_fifo.get(write_item);
@@ -82,6 +113,11 @@ class async_fifo_scoreboard extends uvm_component;
         end
     endtask:writes
 
+    // --------------------------------------------------------
+    // Task : reads
+    // Purpose : Compares DUT read data with expected model and
+    //           checks rempty flag correctness.
+    // --------------------------------------------------------
     task reads();
         int depth_before;
         bit exp_empty;
