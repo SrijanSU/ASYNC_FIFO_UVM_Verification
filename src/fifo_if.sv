@@ -1,7 +1,20 @@
+//============================================================
+// Project      : Asynchronous FIFO Verification
+// File Name    : fifo_if.sv
+// Description  : Interface for connecting DUT and Testbench,
+//                providing separate modports for write and
+//                read domains with clocking blocks and
+//                assertions for signal integrity.
+// Author       : Srijan S Uppoor
+//============================================================
+
 `include "defines.sv"
 
 interface fifo_if(input bit wclk, input bit rclk, input bit wrst_n, input bit rrst_n);
 
+    // --------------------------------------------------------
+    // Signal Declarations
+    // --------------------------------------------------------
     logic [`DATA_WIDTH-1:0] wdata;
     logic winc;
     logic wfull;
@@ -9,14 +22,12 @@ interface fifo_if(input bit wclk, input bit rclk, input bit wrst_n, input bit rr
     logic rinc;
     logic rempty;
 
+    // --------------------------------------------------------
+    // Write Domain Clocking Blocks
+    // --------------------------------------------------------
     clocking cb_w_drv @(posedge wclk or negedge wrst_n);
         default input #0 output #0;
         output winc, wdata;
-    endclocking
-
-    clocking cb_r_drv @(posedge rclk or negedge rrst_n);
-        default input #0 output #0;
-        output rinc;
     endclocking
 
     clocking cb_w_mon @(posedge wclk or negedge wrst_n);
@@ -24,16 +35,30 @@ interface fifo_if(input bit wclk, input bit rclk, input bit wrst_n, input bit rr
         input winc, wdata, wfull;
     endclocking
 
+    // --------------------------------------------------------
+    // Read Domain Clocking Blocks
+    // --------------------------------------------------------
+    clocking cb_r_drv @(posedge rclk or negedge rrst_n);
+        default input #0 output #0;
+        output rinc;
+    endclocking
+    
     clocking cb_r_mon @(posedge rclk or negedge rrst_n);
         default input #0 output #0;
         input rinc, rdata, rempty;
     endclocking
 
+    // --------------------------------------------------------
+    // Modports for Write and Read Operations
+    // --------------------------------------------------------
     modport WRITE_DRV (clocking cb_w_drv);
     modport WRITE_MON (clocking cb_w_mon);
     modport READ_DRV  (clocking cb_r_drv);
     modport READ_MON  (clocking cb_r_mon);
 
+    // --------------------------------------------------------
+    // Assertions for Reset and Data Validity Checks
+    // --------------------------------------------------------
     property wrst_check;
         @(posedge wclk) (!wrst_n) |-> !wfull;
     endproperty
