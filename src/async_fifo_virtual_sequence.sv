@@ -62,7 +62,7 @@ class async_fifo_virtual_sequence extends uvm_sequence #(uvm_sequence_item);
     // ------------------------------------------------------
     // Optional: Uncomment to test custom read/write sequences
     // ------------------------------------------------------
-    /*fork
+    fork
       begin
         $display("1");
         wr_seq1.start(p_sequencer.write_seqr);
@@ -72,17 +72,17 @@ class async_fifo_virtual_sequence extends uvm_sequence #(uvm_sequence_item);
         rd_seq1.start(p_sequencer.read_seqr);
         #1;
       end
-    join*/
+    join
     
-  /*  fork
+    fork
       begin
         $display("3");
         wr_seq1.start(p_sequencer.write_seqr);
         #1;
       end
         rd_seq2.start(p_sequencer.read_seqr);
-    join*/
-/*    fork   
+    join
+    fork   
       $display("4");
     join
     
@@ -93,7 +93,7 @@ class async_fifo_virtual_sequence extends uvm_sequence #(uvm_sequence_item);
         rd_seq1.start(p_sequencer.read_seqr);
         #1;
      end
-   join*/
+   join
     
   endtask:body
 
