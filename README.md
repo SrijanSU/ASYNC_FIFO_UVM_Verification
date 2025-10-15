@@ -1,5 +1,3 @@
-# ASYNC_FIFO_UVM_Verification
-
 # 🧠 Asynchronous FIFO Verification using UVM
 
 ## 📘 Project Overview
