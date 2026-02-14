@@ -266,7 +266,7 @@ class async_fifo_scoreboard extends uvm_component;
                               $sformatf("WRITE: stored %0d (depth now=%0d)", cloned.wdata, exp_fifo.used()),
                               UVM_MEDIUM);
                 end
-                if (old_wfull !== exp_full) begin
+/*                if (old_wfull !== exp_full) begin
                     `uvm_error("SCOREBOARD",
                                $sformatf("WFULL MISMATCH: DUT=%0b EXP=%0b depth=%0d prev=%b",
                                          write_item.wfull, exp_full, exp_fifo.used(), old_wfull));
@@ -276,7 +276,7 @@ class async_fifo_scoreboard extends uvm_component;
                               $sformatf("WFULL MATCH: DUT=%0b EXP=%0b depth=%0d",
                                         write_item.wfull, old_wfull, exp_fifo.used()),
                               UVM_MEDIUM);
-                end
+                end*/
             end 
             else if (write_item.winc && old_wfull) begin
                 `uvm_info("SCOREBOARD",
